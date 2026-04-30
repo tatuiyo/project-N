@@ -3,35 +3,56 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    // プレイヤーの移動速度
+    [Header("移動設定")]
     public float speed = 10f;
 
-    // Rigidbodyコンポーネントへの参照
-    private Rigidbody rb;
+    [Header("ジャンプ設定")]
+    public float jumpForce = 5f; // ジャンプの強さ
 
-    // 入力された移動ベクトル
+    private Rigidbody rb;
     private Vector2 moveInput = Vector2.zero;
+    private int groundContactCount = 0; // 地面に触れているオブジェクト数
+
+    // 地面に触れているか（接触数が1以上なら地上）
+    private bool IsGrounded => groundContactCount > 0;
 
     void Start()
     {
-        // Rigidbodyコンポーネントを取得
         rb = GetComponent<Rigidbody>();
     }
 
-    // Input Systemからの移動入力を処理するメソッド
+    // Input Systemの移動入力（既存）
     void OnMove(InputValue movementValue)
     {
-        // 入力値を2Dベクトルとして取得
         moveInput = movementValue.Get<Vector2>();
+    }
+
+    // スペースキーでジャンプ（Input SystemのJumpアクション）
+    void OnJump(InputValue value)
+    {
+        if (IsGrounded)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
     }
 
     void FixedUpdate()
     {
-        // 入力ベクトルを3D空間の移動ベクトルに変換
-        // Y軸（垂直方向）の移動は0に設定
+        // 移動
         Vector3 movement = new Vector3(moveInput.x, 0.0f, moveInput.y);
-
-        // Rigidbodyに力を加えてプレイヤーを移動
         rb.AddForce(movement * speed);
+    }
+
+    // 地面に触れたとき
+    void OnCollisionEnter(Collision collision)
+    {
+        groundContactCount++;
+    }
+
+    // 地面から離れたとき
+    void OnCollisionExit(Collision collision)
+    {
+        groundContactCount--;
+        if (groundContactCount < 0) groundContactCount = 0;
     }
 }
