@@ -2203,11 +2203,12 @@ MonoBehaviour:
   characterImage: {fileID: 294352083}
   speakerNameText: {fileID: 1167716008}
   dialogueText: {fileID: 1761585611}
+  dayTextUI: {fileID: 0}
   flashPanel: {fileID: 1654949287}
   canvasRect: {fileID: 347394037}
   typeSpeed: 0.04
   autoWaitTime: 1.5
-  csvFileName: dialogue_1
+  csvFileName: dialogue_2
 --- !u!4 &1939810780
 Transform:
   m_ObjectHideFlags: 0

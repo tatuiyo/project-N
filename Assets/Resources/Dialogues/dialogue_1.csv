@@ -1,3 +1,6 @@
-name,text,sprite
-麺乃どん子,こんにちは！最初のステージへ行こう！,donko_normal
-麺乃どん子,クリックで次に進めるよ！,donko_normal
+﻿name,text,sprite,position
+麺乃どん子,こんにちは！[shake]最初のステージへ行こう！,donko_normal,left
+麺乃どん子,[flash]クリックで次に進めるよ！,donko_normal,center
+麺乃どん子,[flash][flash],donko_normal,left
+エビフライヤー,[shake],ebifryer_normal,left
+エビフライヤー,[shake],ebifryer_normal,left
